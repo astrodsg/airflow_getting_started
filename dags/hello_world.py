@@ -14,16 +14,17 @@ default_args = {
     'retry_delay': timedelta(minutes=1),
 }
 
-dag = DAG('Helloworld', default_args=default_args)
+dag = DAG(
+    'hello_world',
+    default_args=default_args,
+    schedule_interval=timedelta(seconds=10),
+)
 
 # t1, t2, t3 and t4 are examples of tasks created using operators
 
 t1 = BashOperator(
     task_id='task_1',
-    bash_command=(
-        'echo "Hmmm World from Task 1, '
-        ' this is a {{ var.json.helloParams.type }}"'
-    ),
+    bash_command='echo "Hello World from Task 1"',
     dag=dag)
 
 t2 = BashOperator(
